@@ -87,7 +87,6 @@ static LoRaWANInterface lorawan(radio);
  */
 static lorawan_app_callbacks_t callbacks;
 
-EnvironmentSensorBoard board(nullptr);
 
 ProjectWork2::PeriodicLed alive1(PC_8, 500);
 ProjectWork2::PeriodicLed alive2(PC_9, 1332);
@@ -95,12 +94,16 @@ ProjectWork2::PeriodicLed alive3(PC_10, 2565);
 
 ProjectWork2::TerminalTransceiver transceiver;
 
+EnvironmentSensorBoard board(&transceiver);
+
 /**
  * Entry point for application
  */
 int main (void)
 {
     cout << "Booting LoRaWAN motion detection board" << endl;
+    cout << "Test the board update method:" << endl;
+    board.update();
 
     // stores the status of a call to LoRaWAN protocol
     lorawan_status_t retcode;
