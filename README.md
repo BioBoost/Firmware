@@ -1,7 +1,27 @@
 # Project Smart-Campus - Firmware
+
 This is the firmware for a environment Sensor Board for the project Smart-Campus created by University College VIVES campus Bruges.
 
+## The Things Network
 
+Create an application on *The Things Network* and make sure to register each device. Also add the following payload formatter:
+
+```javascript
+function Decoder(bytes, port) {
+        // Decode an uplink message from a byte buffer
+        var temperature = (bytes[1] * 255) +  bytes[0];
+        var humidity = bytes[2];
+        var movement = (bytes[4] * 255) +  bytes[3];
+
+        // Place each property inside the decoded object
+        var decoded = {};
+        decoded.temperature = temperature;
+        decoded.humidity = humidity;
+        decoded.movement = movement;
+
+        return decoded;
+}
+```
 
 ## Setting up the project
 Next we need to download the libraries:
@@ -130,5 +150,3 @@ Mbed LoRaWANStack initialized
 
 # UML diagram
 ![UML diagram](./images/UML.png)
-
-
