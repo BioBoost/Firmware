@@ -2,7 +2,25 @@
 
 This is the firmware for a environment Sensor Board for the project Smart-Campus created by University College VIVES campus Bruges.
 
-## The Things Network
+## Setting up the project
+
+First you need to create `.mbed` file with the following content:
+
+```
+ROOT=.
+TOOLCHAIN=GCC_ARM
+TARGET=NUCLEO_L476RG
+```
+
+Next you need to enable C++11 compilation. This can be achieved by changing the three json configurations files in `code/mbed-os/tools/profiles`. Change the `cxx` section of the `GCC_ARM` config to the following:
+
+```json
+        "cxx": ["-std=gnu++11", "-fno-rtti", "-Wvla"],
+```
+
+## Enabling LoRaWAN
+
+### The Things Network
 
 Create an application on *The Things Network* and make sure to register each device. Also add the following payload formatter:
 
@@ -23,60 +41,46 @@ function Decoder(bytes, port) {
 }
 ```
 
-## Setting up the project
-Next we need to download the libraries:
-
-```shell
-mbed deploy
-```
-
-Now setup the project to compile for example for the NUCLEO_L476RG by editing the `.mbed` file and adding the following to it (this can also be done automatically using the mbed detect command if you have an mbed connected):
-
-```
-ROOT=.
-TOOLCHAIN=GCC_ARM
-TARGET=NUCLEO_L476RG
-```
-
-Last we need to enable C++11 compilation. This can be achieved by changing the three json configurations files in `code/mbed-os/tools/profiles`. Change the `cxx` section of the `GCC_ARM` config to the following:
-
-```json
-        "cxx": ["-std=gnu++11", "-fno-rtti", "-Wvla"],
-```
-
-## Adding libraries
-
-If you add other libraries, please only add the `.lib` file to the repository and add the actual library directory to the `code/.gitignore` file. Take a look inside the file for an example.
-
----
-
-# Example LoRaWAN application for Mbed-OS
-
-This is an example application based on `Mbed-OS` LoRaWAN protocol APIs. The Mbed-OS LoRaWAN stack implementation is compliant with LoRaWAN v1.0.2 specification. 
-
-## Getting started
-
-This application can work with any Network Server if you have correct credentials for the said Network Server. 
-
-### Download the application
-
-```sh
-$ mbed import mbed-os-example-lorawan
-$ cd mbed-os-example-lorawan
-
-#OR
-
-$ git clone git@github.com:ARMmbed/mbed-os-example-lorawan.git
-$ cd mbed-os-example-lorawan
-$ mbed deploy
-```
 ### Add network credentials
 
 Open the file `mbed_app.json` in the root directory of your application. This file contains all the user specific configurations your application and the Mbed OS LoRaWAN stack need. Network credentials are typically provided by LoRa network provider.
 
+First one needs to configure the pinout of the LoRa transceiver. Since the PCB is not an officially supported board, the default values at the top should be overriden with the following content:
+
+```json
+        "lora-radio": {
+            "help": "Which radio to use (options: SX1272,SX1276)",
+            "value": "SX1276"
+        },
+
+        "main_stack_size":      1024,
+        "lora-radio":          "SX1276",
+        "lora-spi-mosi":       "D11",
+        "lora-spi-miso":       "D12",
+        "lora-spi-sclk":       "D13",
+        "lora-cs":             "D10",
+        "lora-reset":          "A0",
+        "lora-dio0":           "D2",
+        "lora-dio1":           "D3",
+        "lora-dio2":           "D4",
+        "lora-dio3":           "D5",
+        "lora-dio4":           "D8",
+        "lora-dio5":           "D9",
+        "lora-rf-switch-ctl1": "NC",
+        "lora-rf-switch-ctl2": "NC",
+        "lora-txctl":          "NC",
+        "lora-rxctl":          "NC",
+        "lora-ant-switch":     "NC",
+        "lora-pwr-amp-ctl":    "NC",
+        "lora-tcxo":           "NC"
+    },
+```
+
+Next the keys need to be configured so the device can join the network. You can choose between OTAA and ABP.
+
 #### For OTAA
 
-Please add `Device EUI`, `Application EUI` and `Application Key` needed for Over-the-air-activation(OTAA). For example:
+Please add `Device EUI`, `Application EUI` and `Application Key` needed for Over-the-air-activation (OTAA). For example:
 
 ```json
 
@@ -101,27 +105,34 @@ In addition to that, you need to provide `Application Session Key`, `Network Ses
 "lora.device-address": " YOUR_DEVICE_ADDRESS_IN_HEX  " 
 ```
 
-## Configuring the application
+## Problem with Si7013
 
-The Mbed OS LoRaWAN stack provides a lot of configuration controls to the application through the Mbed OS configuration system. The previous section discusses some of these controls. This section highlights some useful features that you can configure.
+Apparently there is an addressing issue with the Si7013. The library configures the device at address `0x82` while it's real address is `0x80`. This needs to be fixed after issuing an mbed deploy command. Edit the file `SILABS_RHT/SILABS_RHT.cpp` as below:
 
-## Compiling the application
-
-Use Mbed CLI commands to generate a binary for the application.
-For example:
-
-```sh
-$ mbed compile -m YOUR_TARGET -t ARM
+```c++
+/** I2C device address for Si7013 */
+#define SI7013_ADDR      0x80
 ```
 
-If you have made the `.mbed` file, then it is sufficient to just run the `mbed compile` command.
-If you want to flash the project into your mbed board, just add `-f` after the command like so: 
+---
+
+## Development
+
+### Adding libraries
+
+If you add other libraries, please only add the `.lib` file to the repository and add the actual library directory to the `code/.gitignore` file. Take a look inside the file for an example.
+
+### Compiling the application
+
+Use Mbed CLI commands to generate a binary for the application. This can be achieved by running the `mbed compile` command.
+
+If you want to flash the project into your mbed board, just add `-f` after the command like so:
 
 ```shell
 $ mbed compile -f
 ```
 
-## Running the application
+### Running the application
 
 Drag and drop the application binary from `BUILD/YOUR_TARGET/ARM/mbed-os-example-lora.bin` to your Mbed enabled target hardware, which appears as a USB device on your host machine. 
 
@@ -145,16 +156,6 @@ Mbed LoRaWANStack initialized
  25 bytes scheduled for transmission 
  
  Message Sent to Network Server
-
-```
-
-## Problem with Si7013
-
-Apparently there is an addressing issue with the Si7013. The library configures the device at address `0x82` while it's real address is `0x80`. This needs to be fixed after issuing an mbed deploy command. Edit the file `SILABS_RHT/SILABS_RHT.cpp` as below:
-
-```c++
-/** I2C device address for Si7013 */
-#define SI7013_ADDR      0x80
 ```
 
 # UML diagram
