@@ -16,6 +16,12 @@
  */
 #include <stdio.h>
 #include "mbed.h"
+#include <iostream>
+
+#define MBED_CONF_APP_LORAWAN_ENABLED 1
+#define DEVICE_SPI 1
+
+using namespace std;
 
 #if MBED_CONF_APP_LORAWAN_ENABLED
 
@@ -28,10 +34,9 @@
 // Application helpers
 #include "lora_radio_helper.h"
 
+#include "periodic_led.h"
 #include "sensor_data_byte_serializer.h"
 #include "environment_sensor_board.h"
-
-
 
 using namespace events;
 
@@ -82,21 +87,19 @@ static LoRaWANInterface lorawan(radio);
  */
 static lorawan_app_callbacks_t callbacks;
 
-DigitalOut myled (PC_8);
-DigitalOut myled1 (PC_9);
-DigitalOut myled2 (PC_10);
-
-
 EnvironmentSensorBoard board(nullptr);
 
-
+ProjectWork2::PeriodicLed alive1(PC_8, 500);
+ProjectWork2::PeriodicLed alive2(PC_9, 1332);
+ProjectWork2::PeriodicLed alive3(PC_10, 2565);
 
 /**
  * Entry point for application
  */
 int main (void)
 {
-    myled2 = 1;
+    cout << "Booting LoRaWAN motion detection board" << endl;
+
     // stores the status of a call to LoRaWAN protocol
     lorawan_status_t retcode;
 
