@@ -33,7 +33,7 @@ using namespace std;
 
 // Application helpers
 #include "lora_radio_helper.h"
-
+#include "terminal_transceiver.h"
 #include "periodic_led.h"
 #include "sensor_data_byte_serializer.h"
 #include "environment_sensor_board.h"
@@ -92,6 +92,8 @@ EnvironmentSensorBoard board(nullptr);
 ProjectWork2::PeriodicLed alive1(PC_8, 500);
 ProjectWork2::PeriodicLed alive2(PC_9, 1332);
 ProjectWork2::PeriodicLed alive3(PC_10, 2565);
+
+ProjectWork2::TerminalTransceiver transceiver;
 
 /**
  * Entry point for application
@@ -164,7 +166,7 @@ static void send_message()
     packet_len = payload.payload_size();
     payload.serialize(data, tx_buffer, LORAMAC_PHY_MAXPAYLOAD);
 
-
+    transceiver.send(data);
 
     packet_len = 5;
     // tx_buffer[0] = 0xF5;

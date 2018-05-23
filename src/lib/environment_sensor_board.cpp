@@ -2,7 +2,7 @@
 
 
 
-EnvironmentSensorBoard::EnvironmentSensorBoard(Transceiver * inputTransceiver)
+EnvironmentSensorBoard::EnvironmentSensorBoard(ProjectWork2::Transceiver * inputTransceiver)
 : motionSensor(PA_9), sensorI2C(PC_1, PC_0) //PC_1=SDA, PC_0=SCL
 {
     this->transceiver = inputTransceiver;

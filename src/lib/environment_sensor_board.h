@@ -9,7 +9,7 @@ class EnvironmentSensorBoard{
 
     public:
 
-    EnvironmentSensorBoard(Transceiver * inputTransceiver);
+    EnvironmentSensorBoard(ProjectWork2::Transceiver * inputTransceiver);
 
     void update();
     SensorData get_data();
@@ -18,7 +18,7 @@ class EnvironmentSensorBoard{
 
     private:
 
-    Transceiver * transceiver;
+    ProjectWork2::Transceiver * transceiver;
 
     // 3 sensoren
 
