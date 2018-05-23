@@ -148,5 +148,14 @@ Mbed LoRaWANStack initialized
 
 ```
 
+## Problem with Si7013
+
+Apparently there is an addressing issue with the Si7013. The library configures the device at address `0x82` while it's real address is `0x80`. This needs to be fixed after issuing an mbed deploy command. Edit the file `SILABS_RHT/SILABS_RHT.cpp` as below:
+
+```c++
+/** I2C device address for Si7013 */
+#define SI7013_ADDR      0x80
+```
+
 # UML diagram
 ![UML diagram](./images/UML.png)
