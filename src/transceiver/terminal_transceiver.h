@@ -4,8 +4,8 @@
 
 namespace ProjectWork2 {
 
-    class TerminalTransceiver : public Transceiver
-    {
+    class TerminalTransceiver : public Transceiver {
+
         public:
             virtual void send(SensorData data);
 
