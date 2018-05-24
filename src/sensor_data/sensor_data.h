@@ -21,7 +21,6 @@ namespace ProjectWork2 {
 
         public:
             std::string to_string(void) const;
-            std::string to_json(void) const;
 
         private:
             double temperature;

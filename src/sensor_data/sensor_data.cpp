@@ -42,10 +42,4 @@ std::string SensorData::to_string(void) const {
             + "Motion: " + std::to_string(motion);
 }
 
-std::string SensorData::to_json(void) const {
-    return  "{\"temperature\": {\"value\":" + std::to_string(temperature) + ", \"unit\": \"°C\"}, " +
-            "\"motion\": " + std::to_string(motion) + ", "
-            "\"humidity\": {\"value\":" + std::to_string(humidity) + ", \"unit\": \"%\"}}" ;
-}
-
 };
