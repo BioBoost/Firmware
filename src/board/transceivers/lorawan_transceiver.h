@@ -4,13 +4,14 @@
 #include "mbed.h"
 #include "lorawan/LoRaWANInterface.h"
 #include "lorawan/system/lorawan_data_structures.h"
+#include "environment_sensor_board.h"
 
 namespace ProjectWork2 {
 
     class LoRaWANTransceiver : public Transceiver {
 
         public:
-            LoRaWANTransceiver(EventQueue * queue);
+            LoRaWANTransceiver(EventQueue * queue, EnvironmentSensorBoard * board);
 
         public:
             virtual void send(SensorData data);
@@ -32,6 +33,9 @@ namespace ProjectWork2 {
 
             //Application specific callbacks
             lorawan_app_callbacks_t callbacks;
+
+            // TODO: Needs to be refactored
+            EnvironmentSensorBoard * board;
 
     };
 

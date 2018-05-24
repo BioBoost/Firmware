@@ -43,7 +43,7 @@ int main (void)
     board.update();
 
     cout << "Creating a LoRaWAN transceiver" << endl;
-    ProjectWork2::LoRaWANTransceiver loraTransceiver(&ev_queue);
+    ProjectWork2::LoRaWANTransceiver loraTransceiver(&ev_queue, &board);
 
     // make your event queue dispatching events forever
     ev_queue.dispatch_forever();

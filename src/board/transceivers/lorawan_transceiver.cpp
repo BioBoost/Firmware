@@ -17,9 +17,10 @@ namespace ProjectWork2 {
  */
 #define CONFIRMED_MSG_RETRY_COUNTER     3
 
-LoRaWANTransceiver::LoRaWANTransceiver(EventQueue * queue)
+LoRaWANTransceiver::LoRaWANTransceiver(EventQueue * queue, EnvironmentSensorBoard * board)
     : lorawan(radio) {
     this->ev_queue = queue;
+    this->board = board;
     initialize_lora();
 }
 
@@ -135,8 +136,8 @@ void LoRaWANTransceiver::send_message(void)
     uint16_t packet_len;
     int16_t retcode;
 
-    // SensorData data = board.get_data();
-    SensorData data(1, 2, 3);
+    SensorData data = board->get_data();
+    // SensorData data(1, 2, 3);
     packet_len = SensorDataByteSerializer::serialize(data, tx_buffer, LORAMAC_PHY_MAXPAYLOAD);
 
     // transceiver.send(data);
