@@ -114,15 +114,7 @@ Apparently there is an addressing issue with the Si7013. The library configures 
 #define SI7013_ADDR      0x80
 ```
 
----
-
-## Development
-
-### Adding libraries
-
-If you add other libraries, please only add the `.lib` file to the repository and add the actual library directory to the `code/.gitignore` file. Take a look inside the file for an example.
-
-### Compiling the application
+## Compiling the application
 
 Use Mbed CLI commands to generate a binary for the application. This can be achieved by running the `mbed compile` command.
 
@@ -132,7 +124,7 @@ If you want to flash the project into your mbed board, just add `-f` after the c
 $ mbed compile -f
 ```
 
-### Running the application
+## Running the application
 
 Drag and drop the application binary from `BUILD/YOUR_TARGET/ARM/mbed-os-example-lora.bin` to your Mbed enabled target hardware, which appears as a USB device on your host machine. 
 
@@ -158,6 +150,20 @@ Mbed LoRaWANStack initialized
  Message Sent to Network Server
 ```
 
-# UML diagram
+## Data on the TTN
+
+If all goes as plan you should see the data arrive at The Things Network as shown below.
+
+![Data on TTN](img/working_on_ttn.png)
+
+---
+
+## Development
+
+### Adding libraries
+
+If you add other libraries, please only add the `.lib` file to the repository and add the actual library directory to the `code/.gitignore` file. Take a look inside the file for an example.
+
+### UML diagram
 
 ![UML diagram](./images/UML.png)
