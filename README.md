@@ -53,7 +53,7 @@ First one needs to configure the pinout of the LoRa transceiver. Since the PCB i
             "value": "SX1276"
         },
 
-        "main_stack_size":      1024,
+        "main_stack_size":      2048,
         "lora-radio":          "SX1276",
         "lora-spi-mosi":       "D11",
         "lora-spi-miso":       "D12",
