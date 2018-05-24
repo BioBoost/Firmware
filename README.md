@@ -43,9 +43,9 @@ function Decoder(bytes, port) {
 
 ### Add network credentials
 
-Open the file `mbed_app.json` in the root directory of your application. This file contains all the user specific configurations your application and the Mbed OS LoRaWAN stack need. Network credentials are typically provided by LoRa network provider.
+Open the file `mbed_app.json` in the root directory of your application. This file contains all the user specific configurations your application and the mBed OS LoRaWAN stack need. Network credentials are typically provided by LoRa network provider.
 
-First one needs to configure the pinout of the LoRa transceiver. Since the PCB is not an officially supported board, the default values at the top should be overriden with the following content:
+First one needs to configure the pinout of the LoRa transceiver. Since the PCB is not an officially supported board, the default values at the top should be overridden with the following content:
 
 ```json
         "lora-radio": {
@@ -107,7 +107,7 @@ In addition to that, you need to provide `Application Session Key`, `Network Ses
 
 ## Problem with Si7013
 
-Apparently there is an addressing issue with the Si7013. The library configures the device at address `0x82` while it's real address is `0x80`. This needs to be fixed after issuing an mbed deploy command. Edit the file `SILABS_RHT/SILABS_RHT.cpp` as below:
+Apparently there is an addressing issue with the Si7013. The library configures the device at address `0x82` while it's real address is `0x80`. This needs to be fixed after issuing an mBed deploy command. Edit the file `SILABS_RHT/SILABS_RHT.cpp` as below:
 
 ```c++
 /** I2C device address for Si7013 */
@@ -159,4 +159,5 @@ Mbed LoRaWANStack initialized
 ```
 
 # UML diagram
+
 ![UML diagram](./images/UML.png)
