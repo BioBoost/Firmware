@@ -3,7 +3,7 @@
 #include "transceiver.h"
 #include "sensor_data.h"
 #include "temperature_humidity_sensor.h"
-#include "PIR_Sensor.h"
+#include "pir_sensor.h"
 
 class EnvironmentSensorBoard{
 
