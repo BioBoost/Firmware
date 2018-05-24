@@ -154,7 +154,7 @@ Mbed LoRaWANStack initialized
 
 If all goes as plan you should see the data arrive at The Things Network as shown below.
 
-![Data on TTN](img/working_on_ttn.png)
+![Data on TTN](images/working_on_ttn.png)
 
 ---
 
@@ -166,4 +166,4 @@ If you add other libraries, please only add the `.lib` file to the repository an
 
 ### UML diagram
 
-![UML diagram](./images/UML.png)
+![UML diagram](images/UML.png)
