@@ -1,30 +1,17 @@
 #pragma once
+
 #include "sensor_data.h"
-#include "stdint.h"
 
+namespace ProjectWork2 {
 
-class SensorDataByteSerializer{
+    class SensorDataByteSerializer {
 
-    public:
-        
-        
-        void serialize(ProjectWork2::SensorData dataPacket, uint8_t* payload, int maxPayload);
+        public:
+            static unsigned int serialize(SensorData data, uint8_t* buffer, unsigned int buffersize);
 
-        int payload_size();
+        private:
+            static const int REQUIRED_PAYLOAD_SIZE = 5;
 
-        
-
-
-
-
-
-
-    private:
-        static const int PAYLOAD_SIZE = 5;
-        
-        ProjectWork2::SensorData sensorData;
-        int temp;
-        int hum;
-        int pir;
+    };
 
 };

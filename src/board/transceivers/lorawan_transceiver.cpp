@@ -137,18 +137,9 @@ void LoRaWANTransceiver::send_message(void)
 
     // SensorData data = board.get_data();
     SensorData data(1, 2, 3);
-    SensorDataByteSerializer payload;
-    packet_len = payload.payload_size();
-    payload.serialize(data, tx_buffer, LORAMAC_PHY_MAXPAYLOAD);
+    packet_len = SensorDataByteSerializer::serialize(data, tx_buffer, LORAMAC_PHY_MAXPAYLOAD);
 
     // transceiver.send(data);
-
-    packet_len = 5;
-    // tx_buffer[0] = 0xF5;
-    // tx_buffer[1] = 0xAA;
-    // tx_buffer[2] = 0xC6;
-    // tx_buffer[3] = 0x3C;
-    // tx_buffer[4] = 0xEE;           
 
     retcode = lorawan.send(MBED_CONF_LORA_APP_PORT, tx_buffer, packet_len,
                            MSG_CONFIRMED_FLAG);

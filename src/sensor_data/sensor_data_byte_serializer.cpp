@@ -1,31 +1,22 @@
 #include "sensor_data_byte_serializer.h"
 
-void SensorDataByteSerializer::serialize(ProjectWork2::SensorData dataPacket, uint8_t* payload, int maxPayload){
+namespace ProjectWork2 {
 
-    if (maxPayload >= PAYLOAD_SIZE){
+    unsigned int SensorDataByteSerializer::serialize(SensorData data, uint8_t* buffer, unsigned int buffersize) {
+        if (buffersize >= REQUIRED_PAYLOAD_SIZE) {
+            int temperature = data.get_temperature();
+            int motion = data.get_motion();
+            
+            buffer[0] = (uint8_t) temperature >> 8;
+            buffer[1] = (uint8_t) temperature & 0xFF;
+            buffer[2] = (uint8_t) data.get_humidity();
+            buffer[3] = (uint8_t) motion >> 8;
+            buffer[4] = (uint8_t) motion & 0xFF;
 
+            return REQUIRED_PAYLOAD_SIZE;
+        }
 
-        temp = dataPacket.get_temperature();
-        hum = dataPacket.get_humidity();
-        pir = dataPacket.get_motion();
-        
-        //uint8_t payload[PAYLOAD_SIZE];
-
-        payload[0] = (uint8_t) temp >> 8;
-        payload[1] = (uint8_t) temp & 0xFF;
-        payload[2] = (uint8_t) hum;
-        payload[3] = (uint8_t) pir >> 8;
-        payload[4] = (uint8_t) pir & 0xFF;
-
-
-
+        return 0;
     }
 
-
-}
-
-int SensorDataByteSerializer::payload_size(){
-
-    return PAYLOAD_SIZE;
-}
-
+};
