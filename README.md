@@ -27,9 +27,9 @@ Create an application on *The Things Network* and make sure to register each dev
 ```javascript
 function Decoder(bytes, port) {
         // Decode an uplink message from a byte buffer
-        var temperature = (bytes[1] * 255) +  bytes[0];
+        var temperature = (bytes[0] * 255) +  bytes[1];
         var humidity = bytes[2];
-        var movement = (bytes[4] * 255) +  bytes[3];
+        var movement = (bytes[3] * 255) +  bytes[4];
 
         // Place each property inside the decoded object
         var decoded = {};
