@@ -43,9 +43,9 @@ function Decoder(bytes, port) {
 
 ### Add network credentials
 
-Open the file `mbed_app.json` in the root directory of your application. This file contains all the user specific configurations your application and the mBed OS LoRaWAN stack need. Network credentials are typically provided by LoRa network provider.
+Copy the file `mbed_app.example.json` as `mbed_app.json` in the root directory of your application. This file contains all the user specific configurations your application and the mBed OS LoRaWAN stack need. Network credentials are typically provided by LoRa network provider. Make sure never to commit this file as it stores confidential keys.
 
-First one needs to configure the pinout of the LoRa transceiver. Since the PCB is not an officially supported board, the default values at the top should be overridden with the following content:
+Open the `mbed_app.json` file in your favorite editor. First one needs to configure the pinout of the LoRa transceiver. Since the PCB is not an officially supported board, the default values at the top should be overridden with the following content:
 
 ```json
         "lora-radio": {
