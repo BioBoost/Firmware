@@ -8,7 +8,7 @@ class SensorDataByteSerializer{
     public:
         
         
-        void serialize(SensorData dataPacket, uint8_t* payload, int maxPayload);
+        void serialize(ProjectWork2::SensorData dataPacket, uint8_t* payload, int maxPayload);
 
         int payload_size();
 
@@ -22,7 +22,7 @@ class SensorDataByteSerializer{
     private:
         static const int PAYLOAD_SIZE = 5;
         
-        SensorData sensorData;
+        ProjectWork2::SensorData sensorData;
         int temp;
         int hum;
         int pir;

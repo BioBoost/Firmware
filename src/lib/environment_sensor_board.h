@@ -12,7 +12,7 @@ class EnvironmentSensorBoard{
     EnvironmentSensorBoard(ProjectWork2::Transceiver * inputTransceiver);
 
     void update();
-    SensorData get_data();
+    ProjectWork2::SensorData get_data();
 
 
 

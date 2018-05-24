@@ -1,32 +1,32 @@
 #pragma once
-using namespace std;
+
 #include <string>
 
-class SensorData 
-{
-    private:
+namespace ProjectWork2 {
 
-    double temperature;
-    int motion;
-    double humidity;
+    class SensorData {
 
+        public:
+            SensorData(void);
+            SensorData(double temperature, int motion, double humidity);
 
+        public:
+            double get_temperature(void) const;
+            double get_humidity(void) const;
+            int get_motion(void) const;
 
-    public:
+            void set_temperature(double temperature);
+            void set_humidity(double humidity);
+            void set_motion(int motion);
 
-    SensorData();
-    SensorData(double inputTemperature, int iputMotion, double inputHumidity);
+        public:
+            std::string to_string(void) const;
+            std::string to_json(void) const;
 
-    void setTemperature(double temperature);
-    void setMotion(int motion);
-    void setHumidity(double humidity);
+        private:
+            double temperature;
+            double humidity;
+            int motion;
+    };
 
-    double getTemperature();
-    int getMotion();
-    double getHumidity();
-
-    string toJSON();
-
-    string toString();
-    
 };

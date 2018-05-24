@@ -8,15 +8,15 @@ EnvironmentSensorBoard::EnvironmentSensorBoard(ProjectWork2::Transceiver * input
 }
 
 void EnvironmentSensorBoard::update(){
-    SensorData data = get_data();
+    ProjectWork2::SensorData data = get_data();
     transceiver->send(data);
 }
 
-SensorData EnvironmentSensorBoard::get_data(void) {
+ProjectWork2::SensorData EnvironmentSensorBoard::get_data(void) {
     double temperature = temperatureSensor->get_temperature();
     int motion = motionSensor.get_percentage_movement();
     double humidity = temperatureSensor->get_humidity();
 
-    SensorData data(temperature, motion, humidity);
+    ProjectWork2::SensorData data(temperature, motion, humidity);
     return data;
 }

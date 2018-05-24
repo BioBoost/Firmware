@@ -1,13 +1,13 @@
 #include "sensor_data_byte_serializer.h"
 
-void SensorDataByteSerializer::serialize(SensorData dataPacket, uint8_t* payload, int maxPayload){
+void SensorDataByteSerializer::serialize(ProjectWork2::SensorData dataPacket, uint8_t* payload, int maxPayload){
 
     if (maxPayload >= PAYLOAD_SIZE){
 
 
-        temp = dataPacket.getTemperature();
-        hum = dataPacket.getHumidity();
-        pir = dataPacket.getMotion();
+        temp = dataPacket.get_temperature();
+        hum = dataPacket.get_humidity();
+        pir = dataPacket.get_motion();
         
         //uint8_t payload[PAYLOAD_SIZE];
 

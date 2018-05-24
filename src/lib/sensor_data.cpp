@@ -1,60 +1,51 @@
 #include "sensor_data.h"
-#include <iostream> 
-using namespace std;
-#include <string>
 
-SensorData::SensorData(){
-    temperature = 0.0;
-    motion = 0;
-    humidity = 0.0;
+namespace ProjectWork2 {
+
+SensorData::SensorData(void)
+   : SensorData(0, 0, 0) {
 }
 
-SensorData::SensorData(double inputTemperature, int iputMotion, double inputHumidity){
-    temperature = inputTemperature;
-    motion = iputMotion;
-    humidity = inputHumidity;
+SensorData::SensorData(double temperature, int motion, double humidity) {
+    set_temperature(temperature);
+    set_humidity(humidity);
+    set_motion(motion);
 }
-  
 
-string SensorData::toJSON(){
+double SensorData::get_temperature(void) const {
+    return temperature;
+}
+
+double SensorData::get_humidity(void) const {
+    return humidity;
+}
+
+int SensorData::get_motion(void) const {
+    return motion;
+}
+
+void SensorData::set_temperature(double temperature) {
+    this->temperature = temperature;
+}
+
+void SensorData::set_humidity(double humidity) {
+    this->humidity = humidity;
+}
+
+void SensorData::set_motion(int motion) {
+    this->motion = motion;
+}
+
+std::string SensorData::to_string(void) const {
+    return "Temperature: " + std::to_string(temperature) + "*C,\r\n"
+            + "Humidity: " + std::to_string(humidity) + "%,\r\n"
+            + "Motion: " + std::to_string(motion);
+}
+
+std::string SensorData::to_json(void) const {
     return  "{\"temperature\": {\"value\":" + std::to_string(temperature) + ", \"unit\": \"°C\"}, " +
             "\"motion\": " + std::to_string(motion) + ", "
             "\"humidity\": {\"value\":" + std::to_string(humidity) + ", \"unit\": \"%\"}}" ;
 }
 
-
-string SensorData::toString(){
-    return "Temperature: " + std::to_string(temperature) + ", \n\r"
-            + "Movement: " + std::to_string(motion)+ ", \n\r"
-            + "Humidity: " + std::to_string(humidity);
-}    
-
-
-void SensorData::setTemperature(double inputTemperature){
-    temperature = inputTemperature;
-}
-        
-void SensorData::setMotion(int inputMotion){
-    motion = inputMotion;
-}
-
-void SensorData::setHumidity(double inputHumidity){
-    humidity = inputHumidity;
-}
-
-
-double SensorData::getTemperature(){
-    return temperature;
-}
-
-int SensorData::getMotion(){
-    return motion;
-}
-
-double SensorData::getHumidity(){
-    return humidity;
-}
-
-
-
-
+};
