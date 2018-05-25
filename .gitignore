@@ -1,4 +1,6 @@
 .vscode
 mbed-os/
 mbed-lora-radio-drv/
+SILABS_RHT/
+simple_logger/
 mbed_app.json

@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include <iostream>
+#include "simple_logger.h"
 
 using namespace std;
 
@@ -10,7 +11,6 @@ using namespace std;
 #include "lorawan_transceiver.h"
 #include "periodic_led.h"
 #include "environment_sensor_board.h"
-
 
 /**
  * Maximum number of events for the event queue.
@@ -28,6 +28,11 @@ using namespace std;
 */
 static EventQueue ev_queue(MAX_NUMBER_OF_EVENTS * EVENTS_EVENT_SIZE);
 
+Serial pc(USBTX, USBRX); // tx, rx
+
+// Why does it fail here ?
+// SimpleLogger::Logger::get_instance().register_writer(new SimpleLogger::TerminalLogWriter());
+
 ProjectWork2::PeriodicLed alive1(PC_8, 500);
 ProjectWork2::PeriodicLed alive2(PC_9, 1332);
 ProjectWork2::PeriodicLed alive3(PC_10, 2565);
@@ -37,10 +42,9 @@ EnvironmentSensorBoard board(&transceiver);
 
 int main (void)
 {
-    cout << "Booting LoRaWAN motion detection board" << endl;
+    SimpleLogger::Logger::get_instance().register_writer(new SimpleLogger::TerminalLogWriter());
+    Log.info("Booting LoRaWAN motion detection board");
 
-    cout << "Test the board update method:" << endl;
-    board.update();
 
     cout << "Creating a LoRaWAN transceiver" << endl;
     ProjectWork2::LoRaWANTransceiver loraTransceiver(&ev_queue, &board);
