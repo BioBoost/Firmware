@@ -31,7 +31,7 @@ static EventQueue ev_queue(MAX_NUMBER_OF_EVENTS * EVENTS_EVENT_SIZE);
 Serial pc(USBTX, USBRX); // tx, rx
 
 // Why does it fail here ?
-// SimpleLogger::Logger::get_instance().register_writer(new SimpleLogger::TerminalLogWriter());
+// Log.register_writer(new SimpleLogger::TerminalLogWriter());
 
 ProjectWork2::PeriodicLed alive1(PC_8, 500);
 ProjectWork2::PeriodicLed alive2(PC_9, 1332);
@@ -42,7 +42,7 @@ EnvironmentSensorBoard board(&transceiver);
 
 int main (void)
 {
-    SimpleLogger::Logger::get_instance().register_writer(new SimpleLogger::TerminalLogWriter());
+    Log.register_writer(new SimpleLogger::TerminalLogWriter());
     Log.info("Booting LoRaWAN motion detection board");
 
 
